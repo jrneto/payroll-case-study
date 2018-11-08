@@ -4,8 +4,8 @@ namespace Payroll.Domain
 {
     public class ServiceCharge
     {
-        private DateTime time;
-        private double amount;
+        private readonly DateTime time;
+        private readonly double amount;
 
         public ServiceCharge(DateTime time, double amount)
         {

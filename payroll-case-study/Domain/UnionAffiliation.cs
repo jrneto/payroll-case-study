@@ -5,7 +5,7 @@ namespace Payroll.Domain
 {
     public class UnionAffiliation
     {
-        private Hashtable serviceCharges = new Hashtable();
+        private readonly Hashtable serviceCharges = new Hashtable();
         public UnionAffiliation()
         {
         }

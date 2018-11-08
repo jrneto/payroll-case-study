@@ -4,7 +4,7 @@ namespace Payroll.Domain
 {
     public class AddHourlyEmployee : AddEmployTransaction
     {
-        private double hourlyRate;
+        private readonly double  hourlyRate;
 
         public AddHourlyEmployee(int id, string name, string address, double hourlyRate, IPayrollDatabase database)
             : base(id,name,address, database)

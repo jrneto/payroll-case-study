@@ -3,10 +3,9 @@
 namespace Payroll.Domain
 {
     public abstract class ChangeClassificationTransaction : ChangeEmployeeTransaction
-    {
-        private readonly string newName;
+    { 
 
-        public ChangeClassificationTransaction(int empId, IPayrollDatabase database) : base(empId, database)
+        protected ChangeClassificationTransaction(int empId, IPayrollDatabase database) : base(empId, database)
         {
             
         }

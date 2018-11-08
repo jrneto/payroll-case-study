@@ -10,7 +10,7 @@ namespace Payroll.Domain
     {
         private readonly int empId;
 
-        public ChangeEmployeeTransaction(int empId, IPayrollDatabase database) : base(database)
+        protected ChangeEmployeeTransaction(int empId, IPayrollDatabase database) : base(database)
         {
             this.empId = empId;
         }

@@ -6,7 +6,7 @@ namespace Payroll.Domain
     public class HourlyClassification : PaymentClassification
     {
         private double hourlyRate { get; set; }
-        private Hashtable timeCards = new Hashtable(); 
+        private readonly Hashtable timeCards = new Hashtable(); 
 
         public double HourlyRate
         {

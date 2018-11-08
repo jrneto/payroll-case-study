@@ -8,7 +8,7 @@ namespace Payroll.Domain
         private readonly double baseRate;
         private readonly double commissionRate;
 
-        private Hashtable salesReceipts = new Hashtable();
+        private readonly Hashtable salesReceipts = new Hashtable();
         
         public double BaseRate
         {

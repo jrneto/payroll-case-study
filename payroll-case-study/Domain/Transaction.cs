@@ -5,7 +5,7 @@
         protected readonly IPayrollDatabase database;
         public abstract void Execute();
 
-        public Transaction (IPayrollDatabase database)
+        protected Transaction (IPayrollDatabase database)
         {
             this.database = database;
         }

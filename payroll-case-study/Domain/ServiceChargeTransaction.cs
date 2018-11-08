@@ -23,8 +23,8 @@ namespace Payroll.Domain
             if (e != null)
             {
                 UnionAffiliation ua = null;
-                if (e.Affiliation is UnionAffiliation)
-                    ua = e.Affiliation as UnionAffiliation;
+                if (e.Affiliation != null)
+                    ua = e.Affiliation ;
 
                 if (ua != null)
                 {

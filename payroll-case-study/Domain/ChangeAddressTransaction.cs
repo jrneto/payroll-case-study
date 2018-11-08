@@ -2,7 +2,7 @@
 {
     public class ChangeAddressTransaction : ChangeEmployeeTransaction
     {
-        private string newAddress; 
+        private readonly string newAddress; 
 
         public ChangeAddressTransaction(int empId, string newAddress, IPayrollDatabase database) : base(empId, database)
         {

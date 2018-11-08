@@ -12,7 +12,7 @@ namespace Payroll.Domain
         private readonly string name;
         private readonly string address;
 
-        public AddEmployTransaction(int empId, string name, string address, IPayrollDatabase database) 
+        protected AddEmployTransaction(int empId, string name, string address, IPayrollDatabase database) 
             : base(database)
         {
             this.empId = empId;
