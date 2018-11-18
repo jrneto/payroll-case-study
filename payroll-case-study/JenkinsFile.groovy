@@ -8,6 +8,7 @@ pipeline {
              steps {
                 echo 'Building...'
                 echo 'checkout'
+                checkout scm
             }
         }
         stage('Test') {
