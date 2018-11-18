@@ -15,11 +15,9 @@ pipeline {
                 bat "C:\\Jenkins\\workspace\\nuget.exe restore C:\\Jenkins\\workspace\\Payroll3\\payroll-case-study\\Payroll.sln"
 
                 echo '### Building... ###' 
-               
-                script {
-                    def msbuild = tool name: 'MSBuild', type: 'hudson.plugins.msbuild.MsBuildInstallation'
-                    bat "${msbuild} C:\\Jenkins\\workspace\\Payroll3\\payroll-case-study\\Payroll.sln"
-                } 
+                bar "'C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\MSBuild\\15.0\\Bin\\msbuild.exe' C:\\Jenkins\\workspace\\Payroll3\\payroll-case-study\\Payroll.sln"
+
+                
              }
 
         }
