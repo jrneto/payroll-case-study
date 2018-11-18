@@ -8,14 +8,18 @@ pipeline {
             
              steps {
                 
-                echo 'checkout'
+                echo '### checkout ###'
                 checkout scm
 
-                echo 'Restore Nuget Package'
+                echo '### Restore Nuget Package ###'
                 bat "C:\\Jenkins\\workspace\\nuget.exe restore C:\\Jenkins\\workspace\\Payroll3\\payroll-case-study\\Payroll.sln"
 
-                echo 'Building...' 
-                bat "${MSBuild-default} C:\\Jenkins\\workspace\\Payroll3\\payroll-case-study\\Payroll.sln"
+                echo '### Building... ###' 
+               
+                script {
+                    def msbuild = tool name: 'MSBuild-default', type: 'hudson.plugins.msbuild.MsBuildInstallation'
+                    bat "${msbuild} C:\\Jenkins\\workspace\\Payroll3\\payroll-case-study\\Payroll.sln"
+                } 
              }
 
         }
