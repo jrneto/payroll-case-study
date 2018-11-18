@@ -22,7 +22,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo '########## Testing... ##########'
-                bat "C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe C:\\Jenkins\\workspace\\Payroll3\\payroll-case-study\\Test\\bin\\Debug\\Test.dll /result=nunit-result.xml"
+                bat "nunit3-console.exe C:\\Jenkins\\workspace\\Payroll3\\payroll-case-study\\Test\\bin\\Debug\\Test.dll /result=nunit-result.xml"
             }
         }
         stage('Deploy') {
