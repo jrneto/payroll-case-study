@@ -17,7 +17,7 @@ pipeline {
                 echo '### Building... ###' 
                
                 script {
-                    def msbuild = tool name: 'MSBuild-default', type: 'hudson.plugins.msbuild.MsBuildInstallation'
+                    def msbuild = tool name: 'MSBuild', type: 'hudson.plugins.msbuild.MsBuildInstallation'
                     bat "${msbuild} C:\\Jenkins\\workspace\\Payroll3\\payroll-case-study\\Payroll.sln"
                 } 
              }
