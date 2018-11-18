@@ -15,7 +15,7 @@ pipeline {
                 bat "C:\\Jenkins\\workspace\\nuget.exe restore C:\\Jenkins\\workspace\\Payroll3\\payroll-case-study\\Payroll.sln"
 
                 echo 'Building...' 
-                bat "${msbuild} C:\\Jenkins\\workspace\\Payroll3\\payroll-case-study\\Payroll.sln"
+                bat "${MSBuild-default} C:\\Jenkins\\workspace\\Payroll3\\payroll-case-study\\Payroll.sln"
              }
 
         }
