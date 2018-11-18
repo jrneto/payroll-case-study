@@ -7,12 +7,15 @@ pipeline {
         stage('Build') {
             
              steps {
-                echo 'Building...' 
+                
                 echo 'checkout'
                 checkout scm
 
                 echo 'Restore Nuget Package'
                 bat "C:\\Jenkins\\workspace\\nuget.exe restore C:\\Jenkins\\workspace\\Payroll3\\payroll-case-study\\Payroll.sln"
+
+                echo 'Building...' 
+                bat "${msbuild} C:\\Jenkins\\workspace\\Payroll3\\payroll-case-study\\Payroll.sln"
              }
 
         }
