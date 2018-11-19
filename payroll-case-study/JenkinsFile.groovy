@@ -31,7 +31,7 @@ pipeline {
                         echo "${sqScannerMsBuildHome}\\SonarScanner.MSBuild.exe begin /k:payroll /d:sonar.host.url=%SONAR_HOST_URL% /d:sonar.login=%SONAR_AUTH_TOKEN%"
                         // Due to SONARMSBRU-307 value of sonar.host.url and credentials should be passed on command line
                         bat "${sqScannerMsBuildHome}\\SonarScanner.MSBuild.exe begin /k:payroll /d:sonar.host.url=%SONAR_HOST_URL% /d:sonar.login=%SONAR_AUTH_TOKEN%"
-                        bat 'MSBuild.exe /t:Rebuild'
+                        bat 'MSBuild.exe payroll-case-study\\Payroll.sln /t:Rebuild'
                         bat "${sqScannerMsBuildHome}\\SonarScanner.MSBuild.exe end"
                     }
                 }
