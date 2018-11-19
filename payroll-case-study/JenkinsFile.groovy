@@ -1,4 +1,5 @@
 def awesomeVersion = 'UNKNOWN'
+def MSBuildScannerHome = tool 'SonarScanner-MsBuild';
 
 pipeline {
     agent any
@@ -23,10 +24,11 @@ pipeline {
         }
         stage('Begin SonarQube Analysis') {
             steps {
-                //def MSBuildScannerHome = tool 'SonarScanner-MsBuild';
-                //withSonarQubeEnv('civil sonar') {
-                //    bat "${MSBuildScannerHome}\\SonarQube.Scanner.MSBuild.exe begin /k:payroll /n:payroll /d:sonar.sourceEncoding=UTF-8"
-                //}
+                
+                withSonarQubeEnv('civil sonar') {
+                    bat "${MSBuildScannerHome}\\SonarQube.Scanner.MSBuild.exe begin /k:payroll /n:payroll /d:sonar.sourceEncoding=UTF-8"
+                }
+
                 script {
                     awesomeVersion = bat(returnStdout: true, script: 'echo 0.0.1')
                 }
