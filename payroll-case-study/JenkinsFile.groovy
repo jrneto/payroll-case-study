@@ -1,6 +1,4 @@
-def awesomeVersion = 'UNKNOWN'
-def MSBuildScannerHome = tool 'SonarScanner-MsBuild';
-
+ 
 pipeline {
     agent any
     parameters {
@@ -24,16 +22,16 @@ pipeline {
         }
         stage('Begin SonarQube Analysis') {
             steps {
-                
-                withSonarQubeEnv('civil sonar') {
-                    bat "${MSBuildScannerHome}\\SonarQube.Scanner.MSBuild.exe begin /k:payroll /n:payroll /d:sonar.sourceEncoding=UTF-8"
+                echo '########## Sonar Analysis... ##########'
+                withSonarQubeEnv('Sonar Analysis') {
+
+                    bat "SonarScanner.MSBuild.exe begin /k:payroll /d:sonar.host.url=http://localhost:9000 /d:sonar.login=bdb09369df36b21df17469fd14fc1490d88f7807"
+                    bat "MSBuild.exe /t:Rebuild"
+                    bat "SonarScanner.MSBuild.exe end /d:sonar.login=bdb09369df36b21df17469fd14fc1490d88f7807"
+
                 }
 
-                script {
-                    awesomeVersion = bat(returnStdout: true, script: 'echo 0.0.1')
-                }
-                echo 'aaa'
-                echo "awesomeVersion: ${awesomeVersion}"
+                 
             }
         }
         stage('Test') {
