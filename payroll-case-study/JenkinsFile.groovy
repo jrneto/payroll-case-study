@@ -20,30 +20,15 @@ pipeline {
              }
 
         }
-        stage('Begin SonarQube Analysis') {
-            steps {
-                echo '########## Sonar Analysis... ##########'
-                withSonarQubeEnv('Sonar Analysis') {
-
-                    bat "SonarScanner.MSBuild.exe begin /k:payroll /d:sonar.host.url=http://localhost:9000 /d:sonar.login=bdb09369df36b21df17469fd14fc1490d88f7807"
-                    bat "MSBuild.exe /t:Rebuild"
-                    bat "SonarScanner.MSBuild.exe end /d:sonar.login=bdb09369df36b21df17469fd14fc1490d88f7807"
-
-                }
-
-                 
-            }
-        }
-        stage('SonarQube Quality Gate') {
-            steps {
-                script {
-                    timeout(time: 1, unit: 'HOURS') { // Just in case something goes wrong, pipeline will be killed after a timeout
-                        def qg = waitForQualityGate() // Reuse taskId previously collected by withSonarQubeEnv
-                        if (qg.status != 'OK') {
-                            error "Pipeline aborted due to quality gate failure: ${qg.status}"
-                        }
-                    }
-                }
+        stage('Build + SonarQube analysis') {
+            //The tool name "SonarQube Scanner 2.8" needs to match the "Name" field of a SonarQube Installation on the Global Tools Configuration page
+            def sqScannerMsBuildHome = tool 'Sonarqube-scanner3.2.0'
+            //The name used in the withSonarQubeEnv step needs to match the "Name" field of a SonarQube server defined on the Configure System page.
+            withSonarQubeEnv('sonar-msbuild') {
+                // Due to SONARMSBRU-307 value of sonar.host.url and credentials should be passed on command line
+                bat "${sqScannerMsBuildHome}\\SonarScanner.MSBuild.exe begin /k:payroll /d:sonar.host.url=%SONAR_HOST_URL% /d:sonar.login=%SONAR_AUTH_TOKEN%"
+                bat 'MSBuild.exe /t:Rebuild'
+                bat "${sqScannerMsBuildHome}\\SonarScanner.MSBuild.exe end"
             }
         }
 
