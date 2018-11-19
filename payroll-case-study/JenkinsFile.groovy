@@ -1,3 +1,5 @@
+def awesomeVersion = 'UNKNOWN'
+
 pipeline {
     agent any
     parameters {
@@ -19,15 +21,17 @@ pipeline {
              }
 
         }
-        stage('Build + SonarQube analysis') {
-            step {
-                def sqScannerMsBuildHome = tool 'SonarScanner-MsBuild'
-                withSonarQubeEnv('http://localhost:9000') {
-                    // Due to SONARMSBRU-307 value of sonar.host.url and credentials should be passed on command line
-                    bat "${sqScannerMsBuildHome}\\SonarQube.Scanner.MSBuild.exe begin /k:Payroll /n:Payroll /v:1.0 /d:sonar.host.url=http://localhost:9000 /d:sonar.login=bdb09369df36b21df17469fd14fc1490d88f7807"
-                    bat 'MSBuild.exe /t:Rebuild'
-                    bat "${sqScannerMsBuildHome}\\SonarQube.Scanner.MSBuild.exe end"
+        stage('Begin SonarQube Analysis') {
+            steps {
+                //def MSBuildScannerHome = tool 'SonarScanner-MsBuild';
+                //withSonarQubeEnv('civil sonar') {
+                //    bat "${MSBuildScannerHome}\\SonarQube.Scanner.MSBuild.exe begin /k:payroll /n:payroll /d:sonar.sourceEncoding=UTF-8"
+                //}
+                script {
+                    awesomeVersion = bat(returnStdout: true, script: 'echo 0.0.1')
                 }
+                echo 'aaa'
+                echo "awesomeVersion: ${awesomeVersion}"
             }
         }
         stage('Test') {
