@@ -24,7 +24,7 @@ pipeline {
             //The tool name "SonarQube Scanner 2.8" needs to match the "Name" field of a SonarQube Installation on the Global Tools Configuration page
             steps {
                 script { 
-                    def sqScannerMsBuildHome = tool 'Sonarqube-scanner3.2.0'
+                    def sqScannerMsBuildHome = tool 'SonarScanner-MsBuild'
                     echo "===================================================================="
                     //The name used in the withSonarQubeEnv step needs to match the "Name" field of a SonarQube server defined on the Configure System page.
                     withSonarQubeEnv('sonar-msbuild') {
