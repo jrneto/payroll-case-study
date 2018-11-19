@@ -27,7 +27,7 @@ pipeline {
                     def sqScannerMsBuildHome = tool 'SonarScanner-MsBuild'
                     echo "===================================================================="
                     //The name used in the withSonarQubeEnv step needs to match the "Name" field of a SonarQube server defined on the Configure System page.
-                    withSonarQubeEnv('sonar-msbuild') {
+                    withSonarQubeEnv('SonarScanner-MsBuild') {
                         echo "${sqScannerMsBuildHome}\\SonarScanner.MSBuild.exe begin /k:payroll /d:sonar.host.url=%SONAR_HOST_URL% /d:sonar.login=%SONAR_AUTH_TOKEN%"
                         // Due to SONARMSBRU-307 value of sonar.host.url and credentials should be passed on command line
                         bat "${sqScannerMsBuildHome}\\SonarScanner.MSBuild.exe begin /k:payroll /d:sonar.host.url=%SONAR_HOST_URL% /d:sonar.login=%SONAR_AUTH_TOKEN%"
@@ -37,7 +37,18 @@ pipeline {
                 }
             }
         }
-
+        stage('SonarQube Quality Gate') {
+            steps {
+                script {
+                    timeout(time: 1, unit: 'HOURS') { // Just in case something goes wrong, pipeline will be killed after a timeout
+                        def qg = waitForQualityGate() // Reuse taskId previously collected by withSonarQubeEnv
+                        if (qg.status != 'OK') {
+                            error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                        }
+                    }
+                }
+            }
+        }
         stage('Test') {
             steps {
                 echo '########## Testing... ##########'
